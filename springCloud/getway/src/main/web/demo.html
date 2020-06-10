@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<button onclick="f()">测试</button>
+
+<script type="text/javascript">
+    function f() {
+        let obj = {p: ['hello', {y: 'world'}] };
+        let {p: [x, { y }] } = obj;
+        console.log(x)
+        console.log(y)
+    }
+
+
+</script>
+
+
+
+</body>
+</html>

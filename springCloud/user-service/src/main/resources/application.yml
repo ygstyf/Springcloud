@@ -1,0 +1,23 @@
+server:
+  #  项目端口号
+  port: 8081
+spring:
+  application:
+    name: user-service #服务器名
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/day17?serverTimezone=UTC
+    password: 2187137
+    username: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+
+##JPA Configuration:
+#spring.jpa.database: MySQL
+#spring.jpa.show-sql: true
+#spring.jpa.generate-ddl: true
+#spring.jpa.hibernate.ddl-auto: update
+#spring.jpa.hibernate.naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+eureka:
+  client:
+    service-url: # EurekaServer的地址，如果是集群，需要加上其它Server的地址。
+      defaultZone: http://127.0.0.1:10086/eureka,http://127.0.0.1:10087/eureka

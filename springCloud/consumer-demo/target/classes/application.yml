@@ -1,0 +1,55 @@
+server:
+  #  项目端口号
+  port: 8090
+spring:
+  application:
+    name: consumer-service #客户端名
+#    重试机制
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true # 开启Spring Cloud的重试功能
+
+eureka:
+  client:
+    service-url: # EurekaServer的地址，如果是集群，需要加上其它Server的地址。
+      defaultZone: http://127.0.0.1:10086/eureka,http://127.0.0.1:10087/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 30 #30秒发一次心跳
+    lease-expiration-duration-in-seconds: 90 #最小过期时长，90秒内没发心跳将会默认节点死亡
+#user-service:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+user-service:
+  ribbon:
+    ConnectTimeout: 500 # 连接超时时间(ms)
+    ReadTimeout: 3000 # 通信超时时间(ms)
+    OkToRetryOnAllOperations: true # 是否对所有操作重试
+    MaxAutoRetriesNextServer: 1 # 同一服务不同实例的重试次数
+    MaxAutoRetries: 1 # 同一实例的重试次数
+feign:
+  hystrix:
+    enabled: true # 开启Feign的熔断功能
+
+
+#spring 健康监测
+management:
+  endpoint:
+    shutdown:
+      enabled=true:
+    web:
+      exposure:
+        include：health,info:
+        exclude:
+    health:
+      show-details: always
+# spring cloud 熔断重启机制
+hystrix::
+  command:
+    default:
+      circuitBreaker:
+        sleepWindowInMilliseconds: 2000
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 1000 # 设置hystrix的超时时间为6000ms
